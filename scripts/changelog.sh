@@ -2,7 +2,7 @@
 #########################################################################
 # Title:         Changelog Builder                                      #
 # Author(s):     desimaniac                                             #
-# URL:           https://github.com/cloudbox/cloudbox                   #
+# URL:           httpss://github.com/cloudbox/cloudbox                   #
 # Description:   Prints out new version's changelog.                    #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
@@ -17,7 +17,7 @@
 # Constants
 readonly CHANGELOG="changelog.txt"
 readonly DATE=$(date +"%Y-%m-%d")
-readonly REPO="https://github.com/cloudbox/cloudbox"
+readonly REPO="https://github.com/DomGrieco/cloudbox"
 readonly PREVIOUS_VERSION=$(git describe --abbrev=0 --tags)
 readonly NEXT_VERSION=$(echo $PREVIOUS_VERSION \
   | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{$NF=sprintf("%0*d", length($NF), ($NF+1)); print}')

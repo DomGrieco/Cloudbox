@@ -2,7 +2,7 @@
 #########################################################################
 # Title:         Drive STRM Rebuild                                     #
 # Author(s):     desimaniac                                             #
-# URL:           https://github.com/cloudbox/cloudbox                   #
+# URL:           httpss://github.com/cloudbox/cloudbox                   #
 # Description:   Rebuilds STRMs while keeping config intact.            #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #

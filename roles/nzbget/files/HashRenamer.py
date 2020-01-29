@@ -3,7 +3,7 @@
 ##############################################################################
 # Title:         HashRenamer.py                                              #
 # Author(s):     l3uddz                                                      #
-# URL:           https://github.com/cloudbox/cloudbox                        #
+# URL:           httpss://github.com/cloudbox/cloudbox                        #
 # Description:   Renames hashed media files to match the source NZB.         #
 # --                                                                         #
 #            Part of the Cloudbox project: https://cloudbox.works            #

@@ -1,7 +1,7 @@
 #########################################################################
 # Title:         Cloudbox: User Role                                    #
 # Author(s):     desimaniac                                             #
-# URL:           https://github.com/cloudbox/cloudbox                   #
+# URL:           httpss://github.com/cloudbox/cloudbox                   #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
@@ -65,7 +65,7 @@
 
   - name: "Clone Cloudbox project"
     git:
-      repo: "https://github.com/cloudbox/cloudbox.git"
+      repo: "https://github.com/DomGrieco/cloudbox.git"
       dest: "{{ new_home_path }}/cloudbox/"
       version: "{{ git_branch.stdout }}"
       clone: yes
