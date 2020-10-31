@@ -28,30 +28,27 @@ skip_commits:
     - 'roles/backup/**/*'
     - 'roles/restore/**/*'
 
-    # ansible roles extras
-    - 'roles/cloudflare/**/*'
-    - 'roles/ddclient/**/*'
-    - 'roles/emby/**/*'
-    - 'roles/feeder/**/*'
-    - 'roles/mariadb/**/*'
-    - 'roles/nginx/**/*'
-    - 'roles/netdata/**/*'
-    - 'roles/notify/**/*'
-    - 'roles/nvidia/**/*'
-    - 'roles/nzbthrottle/**/*'
-    - 'roles/plex_auth_token/**/*'
-    - 'roles/plex_dupefinder/**/*'
-    - 'roles/plex_patrol/**/*'
-    - 'roles/python-plexlibrary/**/*'
-    - 'roles/resilio-sync/**/*'
-    - 'roles/sabnzbd/**/*'
-    - 'roles/sickbeard_mp4_automator/**/*'
-    - 'roles/subliminal/**/*'
-    - 'roles/traktarr/**/*'
+    # ansible roles extras	
+    - 'roles/cloudflare/**/*'	
+    - 'roles/ddclient/**/*'	
+    - 'roles/feeder/**/*'	
+    - 'roles/mariadb/**/*'	
+    - 'roles/nginx/**/*'	
+    - 'roles/notify/**/*'	
+    - 'roles/nvidia/**/*'	
+    - 'roles/nzbthrottle/**/*'	
+    - 'roles/plex_auth_token/**/*'	
+    - 'roles/plex_dupefinder/**/*'	
+    - 'roles/plex_patrol/**/*'	
+    - 'roles/python-plexlibrary/**/*'	
+    - 'roles/resilio-sync/**/*'	
+    - 'roles/sickbeard_mp4_automator/**/*'	
+    - 'roles/subliminal/**/*'	
+    - 'roles/traktarr/**/*'	
 
   message: /\[minor\]/
 
-image: Ubuntu1604
+image: Ubuntu1804-minimal
 
 matrix:
   fast_finish: true
@@ -60,14 +57,14 @@ matrix:
 build: off
 
 init:
-  - sh: curl -s https://raw.githubusercontent.com/DomGrieco/cloudbox.github.io/master/scripts/dep.sh | sudo -H sh
+  - sh: curl -s https://raw.githubusercontent.com/DomGrieco/cloudbox.github.io/master/scripts/dep.sh | sudo -H sh &> /dev/null
 
 install:
   - sh: git submodule update --init --recursive
   - sh: for i in defaults/*; do cp -n $i "$(basename "${i%.*}")"; done
   - sh: sudo ansible-playbook cloudbox.yml --syntax-check
   - sh: |
-      sudo ansible-playbook cloudbox.yml --tags "cloudbox" \
+      sudo ansible-playbook cloudbox.yml --tags "cloudbox,emby,netdata,sabnzbd" \
           --skip-tags "settings" \
           --extra-vars '{"continuous_integration":true}'
 

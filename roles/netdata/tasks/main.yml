@@ -16,6 +16,12 @@
     subdomain: netdata
   when: cloudflare_enabled
 
+- name: Get Docker group id.
+  shell: "cut -d: -f3 < <(getent group docker)"
+  args:
+    executable: /bin/bash
+  register: docker_group_id
+
 - name: Create htpasswd
   htpasswd:
     path: "/opt/nginx-proxy/htpasswd/{{ item }}.{{ user.domain }}"
@@ -35,22 +41,21 @@
 - name: Create and start container
   docker_container:
     name: netdata
-    image: "titpetric/netdata:latest"
+    image: "netdata/netdata:latest"
     pull: yes
     capabilities:
       - SYS_PTRACE
-    published_ports:
-      - "127.0.0.1:19999:19999"
     env:
       VIRTUAL_HOST: "netdata.{{ user.domain }}"
       VIRTUAL_PORT: 19999
       LETSENCRYPT_HOST: "netdata.{{ user.domain }}"
       LETSENCRYPT_EMAIL: "{{ user.email }}"
+      PGID: "{{ docker_group_id.stdout }}"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       "com.github.cloudbox.cloudbox_managed": "true"
     networks:
@@ -60,5 +65,5 @@
     purge_networks: yes
     restart_policy: unless-stopped
     security_opts:
-      - apparmor:unconfined
+      - apparmor=unconfined
     state: started
